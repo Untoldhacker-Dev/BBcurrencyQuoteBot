@@ -1,5 +1,14 @@
 # IQueryBot - chat bot
-It is repository for chat bot: BBcurrencyQuoteBot
+It is repository for chat bot: BBcurrencyQuoteBot 
+<hr>
+
+# ⁪⁬⁮⁮           ⁪⁬⁮⁮           ⁪⁬⁮⁮     🎉 Powered by - [Bots.Business](https://Bots.Business)
+
+<hr>
+
+<p align="left"> <img src="https://github.com/Untoldhacker-Dev/pictoQue/blob/main/20211017_175229.png" alt="untoldhacker-dev" ; size = 1/> </p>
+
+
 
 ## What it is?
 This repository can be imported to [Bots.Business](https://bots.business) as a worked chat bot.
@@ -82,3 +91,14 @@ See [API](https://api.bots.business/docs#/docs/summary)
 
 
 ![](https://bots.business/images/web-logo.png)
+
+
+## Libs 
+This bot involved the usage of currencyQuote inbuilt Lib, So you don't need to install any extra lib in this bot.
+
+## Usage
+You can use thus bot to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, 
+
+Live Price: `@botusername BTC INR`
+Conversion: `@botusername convert.1.BTC.INR`
+<b> Yes! you got it right! it can be used in inline mode!
