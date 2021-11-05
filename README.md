@@ -1,4 +1,4 @@
-# IQueryBot - chat bot
+# BBcurrencyQuoteBot - chat bot
 It is repository for chat bot: BBcurrencyQuoteBot 
 <hr>
 
@@ -95,10 +95,14 @@ See [API](https://api.bots.business/docs#/docs/summary)
 
 ## Libs 
 This bot involved the usage of currencyQuote inbuilt Lib, So you don't need to install any extra lib in this bot.
+<br> [Read More About CurrencyQuote](https://help.bots.business/libs/lang)
 
 ## Usage
 You can use thus bot to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, 
 
 Live Price: `@botusername BTC INR`
-Conversion: `@botusername convert.1.BTC.INR`
-<b> Yes! you got it right! it can be used in inline mode!
+Conversion: `@botusername convert.1.BTC.INR`<br>
+<b> Yes! you got it right! it can be used in inline mode! 
+    
+    ## Setting it up.
+    Impo the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
