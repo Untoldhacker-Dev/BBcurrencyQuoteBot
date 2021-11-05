@@ -105,4 +105,4 @@ Conversion: `@botusername convert.1.BTC.INR`<br>
 <b> Yes! you got it right! it can be used in inline mode! 
     
     ## Setting it up.
-    Impo the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
+    Import the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
