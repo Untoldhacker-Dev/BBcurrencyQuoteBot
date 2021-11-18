@@ -24,11 +24,12 @@ totalResult = 0
 // core.telegram.org/bots/api#inlinequeryresultarticle
 // another types: https://core.telegram.org/bots/api#inlinequeryresult
 if (req.includes("convert")) {
-  var total_data = req.split("convert.")[1] //Amount.Cur1.cur2
-  var amount_data = total_data.split(".")[0] //Amount
-  var from_currency = total_data.split(".")[1].toUpperCase() //Cur1
-  var to_currency = total_data.split(".")[2].toUpperCase() //Cur2
-  function validateData() {
+  var total_data = req.split("convert ")[1] //Amount.Cur1.cur2
+  var amount_data = total_data.split(" ")[0] //Amount
+  var from_currency = total_data.split(" ")[1].toUpperCase() //Cur1
+  var to_currency = total_data.split(" ")[2].toUpperCase() //Cur2
+  function validateData() { 
+    //Amount sometimes can be entered which is not numeric!
     if (isNaN(amount_data) == true) {
       return "no"
     }
@@ -36,6 +37,8 @@ if (req.includes("convert")) {
   }
 
   if (validateData() == "no") {
+    //We have error: Amount is not a number 
+    //We can show it to person using the bot
     results.push({
       type: "article",
       id: totalResult,
@@ -68,7 +71,9 @@ if (req.includes("convert")) {
     "CurrencyQuote.convert({amount: amount_data,from: from_currency.toUpperCase(),to: to_currency.toUpperCase()})"
   try {
     var result = eval(check_bjs)
-  } catch (err) {
+  } catch (err) { 
+    //CurrencyQuote Lib returns error if the currency symbol entered is incorrect! 
+    // We can inform user: 
     results.push({
       type: "article",
       id: totalResult,
@@ -151,9 +156,13 @@ if (req.includes("convert")) {
   })
 }
 var bjs = 'CurrencyQuote.convert({amount: 1,from: req.toUpperCase(),to: "USD"})'
+//Ut us for Live price
 try {
   var result = eval(bjs)
 } catch (err) {
+  //CurrencyQuote Lib returns error if the currency symbol entered is incorrect! 
+    // We can inform user: 
+
   results.push({
     type: "article",
     id: totalResult,
@@ -183,17 +192,17 @@ try {
 
   return
 }
-var inr_price = CurrencyQuote.convert({
+var inr_price = CurrencyQuote.convert({ //Data in INR
   amount: 1,
   from: req.toUpperCase(),
   to: "INR"
 })
-var usd_price = CurrencyQuote.convert({
+var usd_price = CurrencyQuote.convert({ //Data in USD
   amount: 1,
   from: req.toUpperCase(),
   to: "USD"
 })
-
+//We send data of Live price of the coin
 results.push({
   type: "article",
   id: totalResult,
