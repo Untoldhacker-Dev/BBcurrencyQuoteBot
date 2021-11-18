@@ -99,10 +99,10 @@ This bot involved the usage of currencyQuote inbuilt Lib, So you don't need to i
 <br> [Read More About CurrencyQuote](https://help.bots.business/libs/lang)
 
 ## Usage
-You can use thus bot to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, 
+You can use this bot to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, 
 
 Live Price: `@botusername BTC INR`
-Conversion: `@botusername convert.1.BTC.INR`<br>
+Conversion: `@botusername convert 1 BTC INR`<br>
 <b> Yes! you got it right! it can be used in inline mode! </b>
 
 ### System modifications 
