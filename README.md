@@ -1,15 +1,5 @@
-# BBcurrencyQuoteBot - chat bot
-It is repository for chat bot: BBcurrencyQuoteBot 
-<hr>
-
-# ⁪⁬⁮⁮           ⁪⁬⁮⁮           ⁪⁬⁮⁮     🎉 Powered by - [Bots.Business](https://Bots.Business)
-
-<hr>
-
-### © AdityaKp (UntoldHacker), not for sale 
-<p align="left"> <img src="https://github.com/Untoldhacker-Dev/pictoQue/blob/main/20211017_175229.png" alt="untoldhacker-dev" ; size = 1/> </p>
-
-
+# WeMailBot - chat bot
+It is repository for chat bot: [@WeMailBot](https://t.me/WeMailBot)
 
 ## What it is?
 This repository can be imported to [Bots.Business](https://bots.business) as a worked chat bot.
@@ -92,25 +82,3 @@ See [API](https://api.bots.business/docs#/docs/summary)
 
 
 ![](https://bots.business/images/web-logo.png)
-
-
-## Libs 
-This bot involved the usage of currencyQuote inbuilt Lib, So you don't need to install any extra lib in this bot.
-<br> [Read More About CurrencyQuote](https://help.bots.business/libs/lang)
-
-## Usage
-You can use this bot to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, 
-
-Live Price: `@botusername BTC INR`
-Conversion: `@botusername convert 1 BTC INR`<br>
-<b> Yes! you got it right! it can be used in inline mode! </b>
-
-### System modifications 
-
-• We have: CurrencyQuote lib explained how to use<br>
-• Idea of Using catch and try functions in different way <br>
-• Introduction in complete for inline queries and much more <br>
-    
-## Setting it up.
-
-    Import the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
