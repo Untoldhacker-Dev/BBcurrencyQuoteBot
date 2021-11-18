@@ -103,7 +103,14 @@ You can use thus bot to get Crypto/Currencies prices, you can convert a Currency
 
 Live Price: `@botusername BTC INR`
 Conversion: `@botusername convert.1.BTC.INR`<br>
-<b> Yes! you got it right! it can be used in inline mode! 
+<b> Yes! you got it right! it can be used in inline mode! </b>
+
+### System modifications 
+
+• We have: CurrencyQuote lib explained how to use<br>
+• Idea of Using catch and try functions in different way <br>
+• Introduction in complete for inline queries and much more <br>
     
-    ## Setting it up.
+## Setting it up.
+
     Import the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
