@@ -5,7 +5,8 @@ It is repository for chat bot: BBcurrencyQuoteBot
 # ⁪⁬⁮⁮           ⁪⁬⁮⁮           ⁪⁬⁮⁮     🎉 Powered by - [Bots.Business](https://Bots.Business)
 
 <hr>
-### © AdityaKp 
+
+### © AdityaKp (UntoldHacker), not for sale 
 <p align="left"> <img src="https://github.com/Untoldhacker-Dev/pictoQue/blob/main/20211017_175229.png" alt="untoldhacker-dev" ; size = 1/> </p>
 
 
