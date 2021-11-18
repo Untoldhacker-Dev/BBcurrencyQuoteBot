@@ -16,7 +16,7 @@ var key = [
 ]
 Api.sendMessage({
   text:
-    "_Hi👋\nYou can use me to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, Press the button below and select a chat where to use me.._\n*Live Price:* `@"+bot.name+" BTC INR`\n*Conversion:* `@"+bot.name+" convert.1.BTC.INR`",
+    "_Hi👋\nYou can use me to get Crypto/Currencies prices, you can convert a Currency to INR and USD Prices, Press the button below and select a chat where to use me.._\n*Live Price:* `@"+bot.name+" BTC`\n*Conversion:* `@"+bot.name+" convert 1 BTC INR`",
   reply_markup: { inline_keyboard: key }, parse_mode: "Markdown"
 })
 
