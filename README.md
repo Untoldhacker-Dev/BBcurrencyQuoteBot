@@ -103,7 +103,18 @@ You can use this bot to get Crypto/Currencies prices, you can convert a Currency
 
 Live Price: `@botusername BTC INR`
 Conversion: `@botusername convert 1 BTC INR`<br>
-<b> Yes! you got it right! it can be used in inline mode! </b>
+<b> Yes! you got it right! it can be used in inline mode! You can use this bot for live-time currency prices!
+</b>
+
+### To get price of single token:
+![](https://user-images.githubusercontent.com/74806602/143050784-d29648fb-25bc-40b9-971b-a6258b943fd9.jpeg) ![](https://user-images.githubusercontent.com/74806602/143051086-1cf0403f-fc1a-447e-9451-3d1c8511f46d.jpg)
+
+### To convert one currency to other:
+![](https://user-images.githubusercontent.com/74806602/143051082-ad4a3a73-3a36-4894-817c-e04ba7fd5671.jpg)
+
+### Start interface:
+![](https://user-images.githubusercontent.com/74806602/143050768-313388f0-84d7-4e56-b76a-7483b53bed6c.jpeg)
+
 
 ### System modifications 
 
@@ -113,4 +124,7 @@ Conversion: `@botusername convert 1 BTC INR`<br>
     
 ## Setting it up.
 
-    Import the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
+ Import the bot to your Account > Enable inline mode from botfather > Launch bot > that's it!
+<b> Main Setup:</b>
+    
+![](https://user-images.githubusercontent.com/74806602/143051053-bda7f0eb-442c-49b4-b8b4-b499dba5b8f0.jpeg)
