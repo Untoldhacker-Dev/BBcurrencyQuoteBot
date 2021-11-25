@@ -31,7 +31,7 @@ function invalidAmount() {
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert.1.BTC.INR"
+            switch_inline_query_current_chat: "convert 1 BTC INR"
           }
         ]
       ]
@@ -58,7 +58,7 @@ function invalidExchangeData(err) {
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert.1.BTC.INR"
+            switch_inline_query_current_chat: "convert 1 BTC INR"
           }
         ]
       ]
@@ -98,7 +98,7 @@ function finalSituation() {
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert.1.BTC.INR"
+            switch_inline_query_current_chat: "convert 1 BTC INR"
           }
         ]
       ]
