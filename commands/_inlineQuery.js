@@ -15,7 +15,7 @@ function validateData() {
   if (isNaN(amount_data) == true) {
     return "no"
   }
-  return Math.round(amount_data)
+  return amount_data
 }
 
 function invalidAmount() {
@@ -90,7 +90,7 @@ function finalSituation() {
       " " +
       from_currency +
       " = " +
-      final_data +
+     Math.round( final_data ) +
       " " +
       to_currency,
     title:
@@ -108,7 +108,7 @@ function finalSituation() {
         " " +
         from_currency +
         " = " +
-        final_data +
+        Math.round( final_data )+
         " " +
         to_currency
     },
@@ -215,7 +215,7 @@ totalResult = 0
 if (req.includes("$")) {
   //@bot # 1 BTC to INR
   var total_data = req.split("$ ")[1]//Amount Cur1 to cur2
-  var amount_data = Math.round(total_data.split(" ")[0]) //Amount
+  var amount_data = total_data.split(" ")[0] //Amount
   var from_currency = total_data.split(" ")[1].toUpperCase() //Cur1
   var to_currency = total_data.split("to ")[1].toUpperCase() //Cur2
   if (validateData() == "no") {
