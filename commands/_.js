@@ -20,4 +20,3 @@ Api.sendMessage({
   reply_markup: { inline_keyboard: key },
   parse_mode: "Markdown"
 })
-

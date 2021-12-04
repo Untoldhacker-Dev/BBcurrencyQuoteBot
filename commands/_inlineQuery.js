@@ -9,6 +9,7 @@
   aliases: 
 CMD*/
 
+
 function validateData() {
   //Amount sometimes can be entered which is not numeric!
   if (isNaN(amount_data) == true) {
@@ -24,18 +25,23 @@ function invalidAmount() {
     title: "Illegal Statement",
     input_message_content: {
       message_text:
-        "Convert_to data isn't numeric! please ensure you enter convert.amount.from.to\n\nexample for 1 BitCoin to iNR, Enter: convert.1.BTC.INR "
+        "Convert_to data isn't numeric! please ensure you enter $ amount from_currency to to_currency\n\nexample for 1 BitCoin to iNR, Enter: $ 1 BTC to INR "
     },
     reply_markup: {
       inline_keyboard: [
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert 1 BTC INR"
+            switch_inline_query_current_chat: "$ 1 BTC to INR"
           }
         ]
       ]
     }
+  })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
   })
 }
 function invalidExchangeData(err) {
@@ -51,18 +57,23 @@ function invalidExchangeData(err) {
         to_currency.toUpperCase() +
         "\n" +
         err +
-        "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for 1 BitCoin to iNR, enter: convert.1.BTC.INR "
+        "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for 1 BitCoin to iNR, enter:  $ 1 BTC to INR"
     },
     reply_markup: {
       inline_keyboard: [
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert 1 BTC INR"
+            switch_inline_query_current_chat: "$ 1 BTC to INR"
           }
         ]
       ]
     }
+  })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
   })
 }
 function finalSituation() {
@@ -74,8 +85,16 @@ function finalSituation() {
   results.push({
     type: "article",
     id: totalResult,
+    description:
+      validateData() +
+      " " +
+      from_currency +
+      " = " +
+      final_data +
+      " " +
+      to_currency,
     title:
-      "💱 Conveted " +
+      "💱 Converted " +
       validateData() +
       " " +
       from_currency +
@@ -98,11 +117,16 @@ function finalSituation() {
         [
           {
             text: "New Query",
-            switch_inline_query_current_chat: "convert 1 BTC INR"
+            switch_inline_query_current_chat: "$ 1 BTC to INR"
           }
         ]
       ]
     }
+  })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
   })
 }
 function invalidPriceData(err) {
@@ -124,6 +148,11 @@ function invalidPriceData(err) {
       ]
     }
   })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
+  })
 }
 function finalPriceData() {
   var inr_price = CurrencyQuote.convert({
@@ -143,6 +172,7 @@ function finalPriceData() {
     type: "article",
     id: totalResult,
     title: "Price of 1 " + req.toUpperCase(),
+    description: "1 " + req.toUpperCase() + " = $" + usd_price.toFixed(5),
     input_message_content: {
       message_text:
         "💰 Price of " +
@@ -150,7 +180,10 @@ function finalPriceData() {
         " is:\n\nUSD: " +
         usd_price.toFixed(5) +
         "\nINR: " +
-        inr_price.toFixed(5)
+        inr_price.toFixed(5) +
+        "\n\n📊 Last Updated: " +
+        last_updated +
+        " Minutes Ago."
     },
     reply_markup: {
       inline_keyboard: [
@@ -158,12 +191,18 @@ function finalPriceData() {
       ]
     }
   })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
+  })
 }
 // result.query - it is query from inline searching
 if (!request.query) {
   return
 }
-var req = request.query
+var case_raw = request.query
+var req = case_raw.toLowerCase()
 var results
 var totalResult
 results = []
@@ -173,22 +212,16 @@ totalResult = 0
 // we have InlineQueryResultArticle
 // core.telegram.org/bots/api#inlinequeryresultarticle
 // another types: https://core.telegram.org/bots/api#inlinequeryresult
-if (req.includes("convert")) {
-  var total_data = req.split("convert ")[1] //Amount.Cur1.cur2
-  var amount_data = total_data.split(" ")[0] //Amount
+if (req.includes("$")) {
+  //@bot # 1 BTC to INR
+  var total_data = req.split("$ ")[1]//Amount Cur1 to cur2
+  var amount_data = Math.round(total_data.split(" ")[0]) //Amount
   var from_currency = total_data.split(" ")[1].toUpperCase() //Cur1
-  var to_currency = total_data.split(" ")[2].toUpperCase() //Cur2
+  var to_currency = total_data.split("to ")[1].toUpperCase() //Cur2
   if (validateData() == "no") {
     //We have error: Amount is not a number
     //We can show it to person using the bot
     invalidAmount()
-    Api.answerInlineQuery({
-      // see another fields at:
-      // core.telegram.org/bots/api#answerinlinequery
-      inline_query_id: request.id,
-      results: results,
-      cache_time: 3 // cache time in sec
-    })
   }
   var check_bjs =
     "CurrencyQuote.convert({amount: amount_data,from: from_currency.toUpperCase(),to: to_currency.toUpperCase()})"
@@ -198,23 +231,10 @@ if (req.includes("convert")) {
     //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
     // We can inform user:
     invalidExchangeData(err)
-    Api.answerInlineQuery({
-      // see another fields at:
-      // core.telegram.org/bots/api#answerinlinequery
-      inline_query_id: request.id,
-      results: results,
-      cache_time: 3 // cache time in sec
-    })
+
     return
   }
   finalSituation()
-  Api.answerInlineQuery({
-    // see another fields at:
-    // core.telegram.org/bots/api#answerinlinequery
-    inline_query_id: request.id,
-    results: results,
-    cache_time: 3 // cache time in sec
-  })
 }
 var bjs = 'CurrencyQuote.convert({amount: 1,from: req.toUpperCase(),to: "USD"})'
 //Ut us for Live price
@@ -224,22 +244,25 @@ try {
   //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
   // We can inform user:
   invalidPriceData(err)
-  Api.answerInlineQuery({
-    // see another fields at:
-    // core.telegram.org/bots/api#answerinlinequery
-    inline_query_id: request.id,
-    results: results,
-    cache_time: 3 // cache time in sec
-  })
-
   return
 }
-finalPriceData()
-Api.answerInlineQuery({
-  // see another fields at:
-  // core.telegram.org/bots/api#answerinlinequery
-  inline_query_id: request.id,
-  results: results,
-  cache_time: 3 // cache time in sec
-})
+var last_updated
+var currency_uppercase = req.toUpperCase()
+var crypto_check = "CurrencyQuote.crypto.details[currency_uppercase]"
+//We just need crypto_check to track the currency is crypto or fiat
+try {
+  var result = eval(crypto_check)
+} catch (err) {
+  var fiatData = CurrencyQuote.fiat.details[currency_uppercase]
+  last_updated = CurrencyQuote.fiat.getCachingTime()
+  finalPriceData()
+  return
+}
+var Crypto_details = CurrencyQuote.crypto.details[currency_uppercase]
+if (Crypto_details) {
+  var last_updatedX = CurrencyQuote.crypto.getCachingTime()
+  last_updated = (last_updatedX / 60).toFixed(0)
+
+  finalPriceData()
+}
 
