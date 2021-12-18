@@ -9,11 +9,22 @@
   aliases: 
 CMD*/
 
-
+function errorCheck(code){
+var bjs = code
+//it us for price
+try {
+  var result = eval(bjs)
+} catch (err) {
+  //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
+  // We can inform user:
+  return false //error - execute error function
+}
+  return true //is ok - proceed
+}
 function validateData() {
   //Amount sometimes can be entered which is not numeric!
   if (isNaN(amount_data) == true) {
-    return "no"
+    return false
   }
   return amount_data
 }
@@ -218,41 +229,34 @@ if (req.includes("$")) {
   var amount_data = total_data.split(" ")[0] //Amount
   var from_currency = total_data.split(" ")[1].toUpperCase() //Cur1
   var to_currency = total_data.split("to ")[1].toUpperCase() //Cur2
-  if (validateData() == "no") {
+  if (!validateData()) {
     //We have error: Amount is not a number
     //We can show it to person using the bot
     invalidAmount()
   }
   var check_bjs =
     "CurrencyQuote.convert({amount: amount_data,from: from_currency.toUpperCase(),to: to_currency.toUpperCase()})"
-  try {
-    var result = eval(check_bjs)
-  } catch (err) {
+ if(!errorCheck(check_bjs)){
     //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
     // We can inform user:
-    invalidExchangeData(err)
+    invalidExchangeData("` Cannot Find Symbol `")
 
     return
   }
   finalSituation()
 }
 var bjs = 'CurrencyQuote.convert({amount: 1,from: req.toUpperCase(),to: "USD"})'
-//Ut us for Live price
-try {
-  var result = eval(bjs)
-} catch (err) {
-  //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
-  // We can inform user:
-  invalidPriceData(err)
-  return
+if(!errorCheck(bjs)){
+//it us for Live price
+invalidPriceData("` Cannot Find Symbol `")
+return
 }
+
 var last_updated
 var currency_uppercase = req.toUpperCase()
 var crypto_check = "CurrencyQuote.crypto.details[currency_uppercase]"
+if(!errorCheck(crypto_check)){
 //We just need crypto_check to track the currency is crypto or fiat
-try {
-  var result = eval(crypto_check)
-} catch (err) {
   var fiatData = CurrencyQuote.fiat.details[currency_uppercase]
   last_updated = CurrencyQuote.fiat.getCachingTime()
   finalPriceData()
