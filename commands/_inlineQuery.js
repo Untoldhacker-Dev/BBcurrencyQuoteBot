@@ -8,7 +8,31 @@
   keyboard: 
   aliases: 
 CMD*/
-
+function pushCustomQuery(title, query){
+  results.push({
+    type: "article",
+    id: totalResult,
+    title: title,
+    input_message_content: {
+      message_text: query
+           },
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "New Query",
+            switch_inline_query_current_chat: "$ 1 BTC to INR"
+          }
+        ]
+      ]
+    }
+  })
+  Api.answerInlineQuery({
+    inline_query_id: request.id,
+    results: results,
+    cache_time: 3 // cache time in sec
+  })
+}
 function errorCheck(code){
 var bjs = code
 //it us for price
@@ -56,36 +80,15 @@ function invalidAmount() {
   })
 }
 function invalidExchangeData(err) {
-  results.push({
-    type: "article",
-    id: totalResult,
-    title: "⚠️ No Data!",
-    input_message_content: {
-      message_text:
-        "⚠️ Couldn't Convert coin1  (" +
+  var title = "⚠️ No Data!"
+  var query = "⚠️ Couldn't Convert coin1  (" +
         from_currency.toUpperCase() +
         ") to coin2 " +
         to_currency.toUpperCase() +
         "\n" +
         err +
         "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for 1 BitCoin to iNR, enter:  $ 1 BTC to INR"
-    },
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            text: "New Query",
-            switch_inline_query_current_chat: "$ 1 BTC to INR"
-          }
-        ]
-      ]
-    }
-  })
-  Api.answerInlineQuery({
-    inline_query_id: request.id,
-    results: results,
-    cache_time: 3 // cache time in sec
-  })
+  pushCustomQuery(title, query)
 }
 function finalSituation() {
   var final_data = CurrencyQuote.convert({
@@ -141,29 +144,13 @@ function finalSituation() {
   })
 }
 function invalidPriceData(err) {
-  results.push({
-    type: "article",
-    id: totalResult,
-    title: "⚠️ No Data!",
-    input_message_content: {
-      message_text:
-        "⚠️ Data of Coin (" +
+  var head = "⚠️ No Data!"
+  var body = "⚠️ Data of Coin (" +
         req.toUpperCase() +
         ") is not Found!\n" +
         err +
         "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for BitCoin, enter: BTC "
-    },
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "New Query", switch_inline_query_current_chat: "BTC" }]
-      ]
-    }
-  })
-  Api.answerInlineQuery({
-    inline_query_id: request.id,
-    results: results,
-    cache_time: 3 // cache time in sec
-  })
+  pushCustomQuery(head, body)
 }
 function finalPriceData() {
   var inr_price = CurrencyQuote.convert({
