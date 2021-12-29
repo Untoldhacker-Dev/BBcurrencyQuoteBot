@@ -8,14 +8,14 @@
   keyboard: 
   aliases: 
 CMD*/
-function pushCustomQuery(title, query){
+function pushCustomQuery(title, query) {
   results.push({
     type: "article",
     id: totalResult,
     title: title,
     input_message_content: {
       message_text: query
-           },
+    },
     reply_markup: {
       inline_keyboard: [
         [
@@ -33,16 +33,16 @@ function pushCustomQuery(title, query){
     cache_time: 3 // cache time in sec
   })
 }
-function errorCheck(code){
-var bjs = code
-//it us for price
-try {
-  var result = eval(bjs)
-} catch (err) {
-  //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
-  // We can inform user:
-  return false //error - execute error function
-}
+function errorCheck(code) {
+  var bjs = code
+  //it us for price
+  try {
+    var result = eval(bjs)
+  } catch (err) {
+    //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
+    // We can inform user:
+    return false //error - execute error function
+  }
   return true //is ok - proceed
 }
 function validateData() {
@@ -81,13 +81,14 @@ function invalidAmount() {
 }
 function invalidExchangeData(err) {
   var title = "⚠️ No Data!"
-  var query = "⚠️ Couldn't Convert coin1  (" +
-        from_currency.toUpperCase() +
-        ") to coin2 " +
-        to_currency.toUpperCase() +
-        "\n" +
-        err +
-        "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for 1 BitCoin to iNR, enter:  $ 1 BTC to INR"
+  var query =
+    "⚠️ Couldn't Convert coin1  (" +
+    from_currency.toUpperCase() +
+    ") to coin2 " +
+    to_currency.toUpperCase() +
+    "\n" +
+    err +
+    "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for 1 BitCoin to iNR, enter:  $ 1 BTC to INR"
   pushCustomQuery(title, query)
 }
 function finalSituation() {
@@ -104,7 +105,7 @@ function finalSituation() {
       " " +
       from_currency +
       " = " +
-     Math.round( final_data ) +
+      Math.round(final_data) +
       " " +
       to_currency,
     title:
@@ -122,7 +123,7 @@ function finalSituation() {
         " " +
         from_currency +
         " = " +
-        Math.round( final_data )+
+        Math.round(final_data) +
         " " +
         to_currency
     },
@@ -145,11 +146,12 @@ function finalSituation() {
 }
 function invalidPriceData(err) {
   var head = "⚠️ No Data!"
-  var body = "⚠️ Data of Coin (" +
-        req.toUpperCase() +
-        ") is not Found!\n" +
-        err +
-        "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for BitCoin, enter: BTC "
+  var body =
+    "⚠️ Data of Coin (" +
+    req.toUpperCase() +
+    ") is not Found!\n" +
+    err +
+    "\n\n👁️‍🗨️Possibly the error came because you entered an unknown Currency name or you have entered currency's full name, make sure you enter short form of the Currency, example for BitCoin, enter: BTC "
   pushCustomQuery(head, body)
 }
 function finalPriceData() {
@@ -185,7 +187,12 @@ function finalPriceData() {
     },
     reply_markup: {
       inline_keyboard: [
-        [{ text: "New Query", switch_inline_query_current_chat: "BTC" }]
+        [
+          {
+            text: "New Query",
+            switch_inline_query_current_chat: "BTC"
+          }
+        ]
       ]
     }
   })
@@ -212,7 +219,7 @@ totalResult = 0
 // another types: https://core.telegram.org/bots/api#inlinequeryresult
 if (req.includes("$")) {
   //@bot # 1 BTC to INR
-  var total_data = req.split("$ ")[1]//Amount Cur1 to cur2
+  var total_data = req.split("$ ")[1] //Amount Cur1 to cur2
   var amount_data = total_data.split(" ")[0] //Amount
   var from_currency = total_data.split(" ")[1].toUpperCase() //Cur1
   var to_currency = total_data.split("to ")[1].toUpperCase() //Cur2
@@ -223,7 +230,7 @@ if (req.includes("$")) {
   }
   var check_bjs =
     "CurrencyQuote.convert({amount: amount_data,from: from_currency.toUpperCase(),to: to_currency.toUpperCase()})"
- if(!errorCheck(check_bjs)){
+  if (!errorCheck(check_bjs)) {
     //CurrencyQuote Lib returns error if the currency symbol entered is incorrect!
     // We can inform user:
     invalidExchangeData("` Cannot Find Symbol `")
@@ -233,21 +240,20 @@ if (req.includes("$")) {
   finalSituation()
 }
 var bjs = 'CurrencyQuote.convert({amount: 1,from: req.toUpperCase(),to: "USD"})'
-if(!errorCheck(bjs)){
-//it us for Live price
-invalidPriceData("` Cannot Find Symbol `")
-return
+if (!errorCheck(bjs)) {
+  //it us for Live price
+  invalidPriceData("` Cannot Find Symbol `")
+  return
 }
 
 var last_updated
 var currency_uppercase = req.toUpperCase()
 var crypto_check = "CurrencyQuote.crypto.details[currency_uppercase]"
-if(!errorCheck(crypto_check)){
-//We just need crypto_check to track the currency is crypto or fiat
+if (!errorCheck(crypto_check)) {
+  //We just need crypto_check to track the currency is crypto or fiat
   var fiatData = CurrencyQuote.fiat.details[currency_uppercase]
   last_updated = CurrencyQuote.fiat.getCachingTime()
   finalPriceData()
-  return
 }
 var Crypto_details = CurrencyQuote.crypto.details[currency_uppercase]
 if (Crypto_details) {
@@ -256,4 +262,3 @@ if (Crypto_details) {
 
   finalPriceData()
 }
-
